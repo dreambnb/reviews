@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/review');
 //create a review schema
 let ReviewSchema = mongoose.Schema({
     //reviewId : {type: Number, unique: true},
-    houseId : Number,
+    locationId : Number,
     customerName : String, 
     customerProfilePhotoUrl : String,
     customerReview : String,
