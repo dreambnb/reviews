@@ -1,9 +1,9 @@
 const db = require('../db')
 describe('db test for creating and finding reviews', function() {
     
-    it('should save and find reviews from db', function () {
+    it('should save and find reviews from db', function (done) {
         var sampleData = [{
-            houseId : 0,
+            locationId : 0,
             customerName : 'From test 1', 
             customerProfilePhotoUrl : 'From test 1',
             customerReview : 'From test 1',
@@ -13,14 +13,22 @@ describe('db test for creating and finding reviews', function() {
             ratingLocation : 1,
             ratingValue : 1
         }]
-        var callback = function(err, results) {
+        var callback = ((err, results) => {
             if (err) {
             console.log('db.test error ocured in saving to db-', err);
             }
             console.log('db.test results saving to db-', results);
             expect(results[0]['customerName']).toBe('From test 1');
-        }
-        db.save(sampleData, callback);
-        
+            done();
+        });
+
+        db.save(sampleData, callback);        
+    });
+
+    it('should save and find reviews from db', function (done) {
+        db.find(200, (err, result) => {
+            expect(result.length).toBe(0);
+            done();
+        });
     });
 });
