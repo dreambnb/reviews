@@ -18,8 +18,8 @@ describe('server', function() {
         });
       });
     
-      it('Should 404 when asked for a nonexistent endpoint', function(done) {
-        request('http://127.0.0.1:3000/arglebargle', function(error, response, body) {
+      it('Should 404 when asked when no locationId is provided', function(done) {
+        request('http://127.0.0.1:3000/reviews', function(error, response, body) {
           expect(response.statusCode).toBe(404);
           done();
         });
