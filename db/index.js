@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const awsConfig = require('./config/aws.js');
-const mLabConfig = require('./config/mLab.js');
+const mLabConfig = require('./config/mlab.js');
 mongoose.connect(`mongodb://${mLabConfig.username}:${mLabConfig.password}@ds031957.mlab.com:31957/review`);
 
 //create a review schema
