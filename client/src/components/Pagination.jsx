@@ -7,12 +7,20 @@ export default class Pagination extends React.Component {
         super(props);
         this.state = {
         };
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
+        this.renderButtons = this.renderButtons.bind(this);
     }
-    handleClick() {
-        console.log('clicked-',this.props.index);
+    handleClick(i) {
+        console.log('clicked-', i);
         //make a get request to server with page number
-        this.props.cb(this.props.index);
+        this.props.cb(i);
+    }
+    renderPageIndex() {
+        const pageIndex = [];
+        for(let i = 1; i <= Math.ceil((this.props.totalReviews/5)); i++) {
+            buttons.push(<button key={i} onClick={this.handleClick.bind(this,i)}>{i}</button>);              
+        }
+        return pageIndex;
     }
     render() {
         const paginationStyle = {
@@ -22,7 +30,7 @@ export default class Pagination extends React.Component {
             display: 'inline',
         }
         return (
-            <div style={paginationStyle} onClick={this.handleClick}>{this.props.index}</div>         
+            <div style={paginationStyle}>{this.renderPageIndex()}</div>
         )
     }
 }

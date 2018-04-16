@@ -11,17 +11,18 @@ export default class Review extends React.Component {
         this.state = {
             reviews : [],
             totalReviews : 0,
-            pageIndex : 0,
+            pageIndex : 1,
         };
         this.getReviews = this.getReviews.bind(this);
         this.renderReviews = this.renderReviews.bind(this);
-        this.renderPagination = this.renderPagination.bind(this);
+        // this.renderPagination = this.renderPagination.bind(this);
     }
     componentDidMount() {
         this.getReviews(this.state.pageIndex);
     }
     getReviews(pageIndex){
-        axios.get(`http://127.0.0.1:3000/reviews/`, {
+        console.log('inside get-', pageIndex)
+        axios.get(`http://127.0.0.1:3000/reviews/1`, {
             params : {
                 index: pageIndex,
             }
@@ -41,20 +42,18 @@ export default class Review extends React.Component {
             return <ReviewItem key={index} review={review}/>
         })
     }
-    renderPagination() {
-        var indexBox = [];
-        for(var i = 1; i <= (this.state.totalReviews/5); i++) {
-            indexBox.push(<Pagination key={i} index={i} cb={this.getReviews}/>);
-        }
-        // console.log('inside renderPagination-indexBox-', indexBox);
-        return indexBox;                   
-    }
+    // renderPagination() {
+    //     var indexBox = [];
+        
+    //     // console.log('inside renderPagination-indexBox-', indexBox);
+    //     return indexBox;                   
+    // }
     render() {      
         return (
             <div>
             <div>this is from child component</div> 
             <div>{this.renderReviews()}</div> 
-            <div>{this.renderPagination()}</div>
+            <Pagination cb={this.getReviews} totalReviews={this.state.totalReviews}/>
             </div>        
         )
     }
