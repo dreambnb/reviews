@@ -10,7 +10,7 @@ class App extends React.Component {
         return (
             <div>
             <div>Review below</div>
-            <Review/>
+            <Review locationId={1}/>
             </div>        
         )
     }
