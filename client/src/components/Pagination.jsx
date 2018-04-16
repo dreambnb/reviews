@@ -8,7 +8,7 @@ export default class Pagination extends React.Component {
         this.state = {
         };
         // this.handleClick = this.handleClick.bind(this);
-        this.renderButtons = this.renderButtons.bind(this);
+        this.renderPageIndex = this.renderPageIndex.bind(this);
     }
     handleClick(i) {
         console.log('clicked-', i);
@@ -18,7 +18,7 @@ export default class Pagination extends React.Component {
     renderPageIndex() {
         const pageIndex = [];
         for(let i = 1; i <= Math.ceil((this.props.totalReviews/5)); i++) {
-            buttons.push(<button key={i} onClick={this.handleClick.bind(this,i)}>{i}</button>);              
+            pageIndex.push(<button key={i} onClick={this.handleClick.bind(this,i)}>{i}</button>);              
         }
         return pageIndex;
     }

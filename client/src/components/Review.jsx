@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Style from './styles';
-import ReviewItem from './ReviewItem'
+import ReviewItem from './ReviewItem.jsx'
 import Pagination from './Pagination.jsx';
+import Ratings from './Ratings.jsx';
 
 export default class Review extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ export default class Review extends React.Component {
             reviews : [],
             totalReviews : 0,
             pageIndex : 1,
+            averageRatings : [],
         };
         this.getReviews = this.getReviews.bind(this);
         this.renderReviews = this.renderReviews.bind(this);
@@ -21,15 +23,17 @@ export default class Review extends React.Component {
         this.getReviews(this.state.pageIndex);
     }
     getReviews(pageIndex){
-        console.log('inside get-', pageIndex)
-        axios.get(`http://127.0.0.1:3000/reviews/1`, {
+        axios.get(`http://127.0.0.1:3000/reviews/${this.props.locationId}`, {
             params : {
                 index: pageIndex,
             }
         })
         .then(reviews => { 
-            // console.log('axios get req reviews-', reviews)
-            this.setState({reviews: reviews.data.getFive, totalReviews: reviews.data.len})
+            console.log('axios get req reviews-', reviews)
+            this.setState({reviews: reviews.data.getFive, totalReviews: reviews.data.totalReviews})
+            if (reviews.data.averageRatings) {
+                this.setState({averageRatings:reviews.data.averageRatings})
+            }            
         })
         //reviews => this.setState({reviews: reviews.data})) 
         .catch(function(error) {
@@ -37,7 +41,7 @@ export default class Review extends React.Component {
         });
     }
     renderReviews() {
-        console.log('inside renderReviews() reviews and count-', this.state.reviews);    
+        // console.log('inside renderReviews() reviews and count-', this.state.reviews);    
         return this.state.reviews.map((review, index) => {
             return <ReviewItem key={index} review={review}/>
         })
@@ -52,6 +56,7 @@ export default class Review extends React.Component {
         return (
             <div>
             <div>this is from child component</div> 
+            <Ratings averageRatings={this.state.averageRatings}/>
             <div>{this.renderReviews()}</div> 
             <Pagination cb={this.getReviews} totalReviews={this.state.totalReviews}/>
             </div>        
