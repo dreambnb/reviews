@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {ReadMore} from 'react-read-more';
 import Style from './styles';
 
 export default class ReviewItem extends React.Component {
@@ -13,13 +14,20 @@ export default class ReviewItem extends React.Component {
         return (
             <div style={Style.reviewItemContainer}>
                 <div style={Style.userDetailsContainer}>
-                    <div style={Style.profilePicStyle}>{review.customerProfilePhotoUrl}</div>
+                    
+                    <img src={review.customerProfilePhotoUrl} style={Style.profilePicStyle}/>
+                    
                     <div style={Style.nameContainer}>
                         <div style={Style.nameStyle}>{review.customerName}</div>
                         <div style={Style.dateStyle}>{createdDate}</div>
                     </div>
                 </div>
-                <div style={Style.reviewTextContainer}>{review.customerReview}</div>
+                <div style={Style.reviewTextContainer}>
+                    <span><ReadMore style={{color: 'red'}} lines={3} text="Read more">
+                        {review.customerReview}
+                        </ReadMore>
+                    </span>
+                </div>
             </div>   
         )
     }

@@ -10,15 +10,15 @@ export default class StarWidget extends React.Component {
   
     render() {
         return (                
-            <div>
+            <span>
             <StarRatings
             rating={this.props.rating}
-            starRatedColor='light green'
+            starRatedColor='#30a88a'
             starDimension="20px"
             starSpacing="0px"
             numberOfStars={5}
             />
-            </div>
+            </span>
           );
       }
 }

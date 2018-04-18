@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import Review from './components/Review.jsx';
+import Style from './components/styles.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -8,8 +10,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div>
-            <div>Review below</div>
+            <div style={Style.reviewComponent}>
             <Review locationId={1}/>
             </div>        
         )

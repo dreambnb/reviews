@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Style from './styles';
 import ReviewItem from './ReviewItem.jsx'
-import Pagination from './Pagination.jsx';
+import Paginations from './Paginations.jsx';
 import Ratings from './Ratings.jsx';
 
 export default class Review extends React.Component {
@@ -14,26 +14,46 @@ export default class Review extends React.Component {
             totalReviews : 0,
             pageIndex : 1,
             averageRatings : [],
+            keyword: '',
         };
         this.getReviews = this.getReviews.bind(this);
         this.renderReviews = this.renderReviews.bind(this);
-        // this.renderPagination = this.renderPagination.bind(this);
+        this.searchKeyword = this.searchKeyword.bind(this);
     }
     componentDidMount() {
-        this.getReviews(this.state.pageIndex);
+        this.getReviews();
     }
-    getReviews(pageIndex){
-        axios.get(`http://127.0.0.1:3000/reviews/${this.props.locationId}`, {
+    componentDidUpdate(prevProps) {
+        if (prevProps.locationId !== this.props.locationId) {
+            this.getReviews();
+        }
+    }
+    getReviews(pageIndex, keyword){
+        if (pageIndex == null) {   //checks for both null and undefined 
+            pageIndex = this.state.pageIndex;
+        }
+        if (keyword == null) {
+            keyword = this.state.keyword;
+        }
+        axios.get(`http://127.0.0.1:3000/reviews/`, {
             params : {
+                locationId: this.props.locationId,
                 index: pageIndex,
+                keyword: keyword
             }
         })
         .then(reviews => { 
-            console.log('axios get req reviews-', reviews)
-            this.setState({reviews: reviews.data.getFive, totalReviews: reviews.data.totalReviews})
+            console.log('axios get req reviews-', reviews);
+            var newStateObj = {
+                reviews: reviews.data.getFive, 
+                totalReviews: reviews.data.totalReviews,
+                keyword: keyword,
+                searchResultsReviewsTotal: reviews.data.searchResultsReviewsTotal,
+            }
             if (reviews.data.averageRatings) {
-                this.setState({averageRatings:reviews.data.averageRatings})
-            }            
+                newStateObj['averageRatings'] = reviews.data.averageRatings;
+            } 
+            this.setState(newStateObj);                          
         })
         //reviews => this.setState({reviews: reviews.data})) 
         .catch(function(error) {
@@ -46,19 +66,16 @@ export default class Review extends React.Component {
             return <ReviewItem key={index} review={review}/>
         })
     }
-    // renderPagination() {
-    //     var indexBox = [];
-        
-    //     // console.log('inside renderPagination-indexBox-', indexBox);
-    //     return indexBox;                   
-    // }
+    searchKeyword(keyword) {
+        console.log('inside searchKeyword-keyword-', keyword); 
+        this.getReviews(1, keyword); 
+    }
     render() {      
         return (
             <div>
-            <div>this is from child component</div> 
-            <Ratings averageRatings={this.state.averageRatings}/>
+            <Ratings averageRatings={this.state.averageRatings} totalReviews={this.state.totalReviews} searchKeyword={this.searchKeyword}/>
             <div>{this.renderReviews()}</div> 
-            <Pagination cb={this.getReviews} totalReviews={this.state.totalReviews}/>
+            <Paginations cb={this.getReviews} searchReviews={this.state.searchResultsReviewsTotal}/>
             </div>        
         )
     }
