@@ -10,7 +10,8 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "server-start": "nodemon server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot"
   },
   "dependencies": {
