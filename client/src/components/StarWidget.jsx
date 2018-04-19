@@ -7,18 +7,18 @@ export default class StarWidget extends React.Component {
     constructor(props) {
         super(props);
     }
-  
+
     render() {
-        return (                
+        return (
             <span>
-            <StarRatings
-            rating={this.props.rating}
-            starRatedColor='#30a88a'
-            starDimension="20px"
-            starSpacing="0px"
-            numberOfStars={5}
-            />
+                <StarRatings
+                    rating={this.props.rating}
+                    starRatedColor='#008489'
+                    starDimension="20px"
+                    starSpacing="3px"
+                    numberOfStars={5}
+                />
             </span>
-          );
-      }
+        );
+    }
 }

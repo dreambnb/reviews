@@ -13,8 +13,11 @@ export default class Search extends React.Component {
         }
       }
     render() {
-        return(        
-            <input placeholder='Search review' onKeyPress={this._handleKeyPress}/>
+        return(  
+            <div style={Style.summaryReviewSearchBarInputDiv}> 
+                <input type='text' style={Style.summaryReviewSearchBarInput} placeholder='Search review' onKeyPress={this._handleKeyPress}/>  
+                <label style={Style.summaryReviewSearchBarInputLabel}><i className='fas fa-search'></i></label>   
+            </div>
         )
     }
 }

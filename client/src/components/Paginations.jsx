@@ -42,8 +42,8 @@ export default class Paginations extends React.Component {
         let totalReviews = this.props.searchReviews;
         for(let i = 1; i <= Math.ceil(totalReviews/5); i++) {
             pageIndex.push(
-                    <PaginationItem key={i} onClick={this.handleClick.bind(this,i)}>
-                        <PaginationLink href="#">{i}</PaginationLink>
+                    <PaginationItem style={Style.pageItemStyling} key={i} onClick={this.handleClick.bind(this,i)}>
+                        <PaginationLink style={Style.pageNumberStyling} href="#">{i}</PaginationLink>
                     </PaginationItem>)           
         }
         return pageIndex;
@@ -51,7 +51,7 @@ export default class Paginations extends React.Component {
     render() {
         return (
             <div style={Style.pageIndexStyling}>
-                <Pagination style={Style.pageIndexStyling} size="lg">
+                <Pagination size="sm">
                     {this.renderPageIndex()}
                 </Pagination>
             </div>

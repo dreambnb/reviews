@@ -31,11 +31,11 @@ export default class Ratings extends React.Component {
     }
     renderOverallRatings() {
         return <div style={Style.summaryReviewStyling}>
-            <div style={Style.summaryReviewTextStyling}>{this.props.totalReviews} Reviews</div>
-            <StarWidget rating={this.props.averageRatings['overallRating']}/>
-            <div style={Style.summaryReviewSearchBarStyling}>
-                <Search cb={this.props.searchKeyword}/>
+            <div style={Style.summaryReviewTextRatingStyling}>
+                <div style={Style.summaryReviewTextStyling}>{this.props.totalReviews} Reviews</div>
+                <StarWidget rating={this.props.averageRatings['overallRating']} />
             </div>
+            <Search cb={this.props.searchKeyword} />
         </div>
     }
 

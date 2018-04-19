@@ -262,3 +262,16 @@ module.exports.find = find;
 // // //     ratingLocation : 1,
 // // //     ratingValue : 1
 // // // }
+
+// [{
+//     "locationId" : 20,
+//     "customerName" : "customer16", 
+//     "customerProfilePhotoUrl" : "/pics/default.jpg",
+//     "customerReview" : "text15",
+//     "ratingAccuracy" : 1,
+//     "ratingCommunication" : 1,
+//     "ratingCleanliness" : 1,
+//     "ratingCheckIn" : 1,
+//     "ratingLocation" : 1,
+//     "ratingValue" : 1
+// }]

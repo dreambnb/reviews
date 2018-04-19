@@ -8,7 +8,7 @@ export default class ReviewItem extends React.Component {
         super(props);
     }
 
-    render() {
+    render() {      
         const {review} = this.props;
         const createdDate = (new Date(review.createdAt)).toLocaleDateString();
         return (
@@ -23,7 +23,8 @@ export default class ReviewItem extends React.Component {
                     </div>
                 </div>
                 <div style={Style.reviewTextContainer}>
-                    <span><ReadMore style={{color: 'red'}} lines={3} text="Read more">
+                
+                    <span ><ReadMore lines={2} text="Read more">
                         {review.customerReview}
                         </ReadMore>
                     </span>
@@ -32,3 +33,8 @@ export default class ReviewItem extends React.Component {
         )
     }
 }
+
+{/* <Truncate lines={3} ellipsis={<span>... <a href='#' style='color:#008489'>Read more</a></span>}>
+                {longText}
+            </Truncate> */}
+// ellipsis={<span>...<a href='#' style={{'color':'#008489'}}

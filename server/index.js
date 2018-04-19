@@ -99,12 +99,14 @@ const calculateRatings = (results) => {
 }
 
 app.post('/reviews/:locationId', function(req, res) {    
-    console.log(req.body);
-    db.save(sampleReviews, function(err, results) {
+    db.save(req.body, function(err, results) {
             if (err) {
                 console.log('error ocured in saving to db-', err);
+                res.sendStatus(404);
+            } else {
+                console.log('results saving to db-', results);
+                res.sendStatus(201);
             }
-            console.log('results saving to db-', results);
         });
 });
 
