@@ -14,7 +14,6 @@ export default class Paginations extends React.Component {
         this.renderPageIndex = this.renderPageIndex.bind(this);
     }
     handleClick(i) {
-        console.log('clicked-', i);
         //make a get request to server with page number
         this.props.cb(i);
     }

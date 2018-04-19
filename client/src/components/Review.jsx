@@ -44,7 +44,6 @@ export default class Review extends React.Component {
             }
         })
         .then(reviews => { 
-            console.log('axios get req reviews-', reviews);
             var newStateObj = {
                 reviews: reviews.data.getFive, 
                 totalReviews: reviews.data.totalReviews,
