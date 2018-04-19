@@ -12,13 +12,16 @@ app.use(cors());
 //server static content
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/reviews', function (req, res) {
-    console.log('server index.js-', req.query);
+    const locationId = req.query.locationId;
+    console.log('inside server-', locationId);
     const pageIndex = Number(req.query.index);
-    console.log('server index.js pageIndex-', typeof pageIndex);
+    if (locationId === undefined) {
+        res.sendStatus(404);
+        return;
+    }
     const startIndex = 5 * (pageIndex - 1);
     const endIndex = 5 * pageIndex;
-    //hit db for first get request
-    db.find(req.query.locationId, function (err, results) {
+    db.find(locationId, function (err, results) {
         if (err) {
             console.log('server index err while fetching data from db-', err);
             res.sendStatus(404);

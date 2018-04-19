@@ -15,6 +15,7 @@ export default class Review extends React.Component {
             pageIndex : 1,
             averageRatings : [],
             keyword: '',
+            searchResultsReviewsTotal: 0,
         };
         this.getReviews = this.getReviews.bind(this);
         this.renderReviews = this.renderReviews.bind(this);
