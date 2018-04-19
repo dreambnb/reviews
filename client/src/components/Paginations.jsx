@@ -18,25 +18,7 @@ export default class Paginations extends React.Component {
         //make a get request to server with page number
         this.props.cb(i);
     }
-    // renderPageIndex() {
-    //     const pageIndex = [];
-    //     let totalReviews = this.props.searchReviews;
-    //     for(let i = 1; i <= Math.ceil((totalReviews/5)); i++) {
-    //         pageIndex.push(<button key={i} onClick={this.handleClick.bind(this,i)}>{i}</button>);              
-    //     }
-    //     return pageIndex;
-    // }
-    // render() {
-    //     const paginationStyle = {
-    //         border: '1px solid black',
-    //         borderRadius: '40%',
-    //         width: '100px',
-    //         display: 'inline',
-    //     }
-    //     return (
-    //         <div style={paginationStyle}>{this.renderPageIndex()}</div>
-    //     )
-    // }
+
     renderPageIndex() {
         const pageIndex = [];
         let totalReviews = this.props.searchReviews;

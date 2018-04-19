@@ -110,7 +110,7 @@ app.post('/reviews/:locationId', function(req, res) {
                 console.log('results saving to db-', results);
                 res.sendStatus(201);
             }
-        });
+    });
 });
 
 let port = 3000;

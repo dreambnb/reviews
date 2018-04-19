@@ -2,18 +2,7 @@ import React from 'react';
 import Review from '../src/components/Review.jsx';
 import Ratings from '../src/components/Ratings.jsx';
 import Paginations from '../src/components/Paginations.jsx';
-import { shallow, render, mount } from 'enzyme';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
-
-Enzyme.configure({ adapter: new Adapter() });
-
-
-// Make Enzyme functions available in all test files without importing
-// global.shallow = shallow;
-// global.render = render;
-// global.mount = mount;
 
 describe('Review component testing', () => {  
   let wrapper;

@@ -28,10 +28,11 @@ describe('db test for creating and finding reviews', function() {
         });       
     });
 
-    it('should save and find reviews from db', function (done) {
+    it('should return empty array when locationId is not present in db', function (done) {
         db.find(10001, (err, result) => {
             expect(result.length).toBe(0);
             done();
         });
     });
+
 });

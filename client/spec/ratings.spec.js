@@ -2,12 +2,8 @@ import React from 'react';
 import Ratings from '../src/components/Ratings.jsx';
 import StarWidget from '../src/components/StarWidget.jsx';
 import Search from '../src/components/Search.jsx';
-import { shallow, render, mount } from 'enzyme';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 
-Enzyme.configure({ adapter: new Adapter() });
 describe('Ratings component testing', () => {  
     let wrapper;
     it('Should call renderLeftRatings and renderRightRatings  upon mounting', () => {

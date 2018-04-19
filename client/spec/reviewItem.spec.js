@@ -1,11 +1,7 @@
 import React from 'react';
 import ReviewItem from '../src/components/ReviewItem.jsx';
-import { shallow } from 'enzyme';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 
-Enzyme.configure({ adapter: new Adapter() });
 describe('ReviewItem component testing', () => {  
     // it('Should call renderPageIndex upon mounting', () => {
     //   const spyRenderPageIndex = sinon.spy(Paginations.prototype, 'renderPageIndex');

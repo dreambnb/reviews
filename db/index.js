@@ -44,7 +44,7 @@ let save = function(sampleReviews, callback) {
             callback(err, null)
             return;
         }
-        console.log('saved into db successfully-');
+        console.log('saved into db successfully-',results);
         callback(null, results);
     })
 }
