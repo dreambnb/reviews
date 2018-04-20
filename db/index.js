@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+// mongoose.connect(`mongodb://localhost/review`, {
+//     useMongoClient: true,
+// });
+// const mLabConfig = require('./config/mLab.js');
+mongoose.connect(`mongodb://fantasyBnB:fantasyBnB@ds031957.mlab.com:31957/review`);
 
-const awsConfig = require('./config/aws.js');
-const mLabConfig = require('./config/mlab.js');
-mongoose.connect(`mongodb://${mLabConfig.username}:${mLabConfig.password}@ds031957.mlab.com:31957/review`);
+
 
 //create a review schema
 let ReviewSchema = mongoose.Schema({
@@ -12,6 +15,9 @@ let ReviewSchema = mongoose.Schema({
     customerProfilePhotoUrl : String,
     customerReview : String,
     createdAt : Date,
+    ratingAccuracy: Number,
+    ratingCommunication: Number,
+
     ratingCleanliness : Number,
     ratingCheckIn : Number,
     ratingLocation : Number,
@@ -22,13 +28,16 @@ let Review = mongoose.model('Review', ReviewSchema);
 
 //save reviews in db
 let save = function(sampleReviews, callback) {
-    var sampleReviewsObject = sampleReviews.map (function(review) {
+    let sampleReviewsObject = sampleReviews.map (function(review) {
+
         return new Review ({
             locationId : review.locationId,
             customerName : review.customerName, 
             customerProfilePhotoUrl : review.customerProfilePhotoUrl,
             customerReview : review.customerReview,
-            createdAt : review.createdAt,
+            createdAt : new Date(),
+            ratingAccuracy: review.ratingAccuracy,
+            ratingCommunication : review.ratingCommunication,
             ratingCleanliness : review.ratingCleanliness,
             ratingCheckIn : review.ratingCheckIn,
             ratingLocation : review.ratingLocation,
@@ -41,7 +50,8 @@ let save = function(sampleReviews, callback) {
             callback(err, null)
             return;
         }
-        console.log('saved into db successfully-');
+        console.log('saved into db successfully-',results);
+
         callback(null, results);
     })
 }
@@ -52,6 +62,8 @@ let find = function(locationId, callback) {
             callback(err, null);
             return;
         }
+        // console.log('inside db find-', results);
+
         callback(null, results);
         return;
     })
@@ -61,187 +73,217 @@ module.exports.find = find;
 
 // var sampleReviews = 
 //     [{
-//         houseId : 1,
+//         locationId : 1,
 //         customerName : 'customer1', 
 //         customerProfilePhotoUrl : 'url1',
 //         customerReview : 'text1',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 2,
+//         locationId : 2,
 //         customerName : 'customer2', 
 //         customerProfilePhotoUrl : 'url2',
 //         customerReview : 'text2',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
+
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 3,
+//         locationId : 3,
 //         customerName : 'customer3', 
 //         customerProfilePhotoUrl : 'url3',
 //         customerReview : 'text3',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
-//     },
+    // },
+    // {
+    //     locationId : 4,
+    //     customerName : 'customer4', 
+    //     customerProfilePhotoUrl : 'url4',
+    //     customerReview : 'text4',
+    //     ratingAccuracy : 1,
+    //     ratingCommunication : 1,
+    //     ratingCleanliness : 1,
+    //     ratingCheckIn : 1,
+    //     ratingLocation : 1,
+    //     ratingValue : 1
+    // },
 //     {
-//         houseId : 4,
-//         customerName : 'customer4', 
-//         customerProfilePhotoUrl : 'url4',
-//         customerReview : 'text4',
-//         createdAt : new Date(),
-//         ratingCleanliness : 1,
-//         ratingCheckIn : 1,
-//         ratingLocation : 1,
-//         ratingValue : 1
-//     },
-//     {
-//         houseId : 5,
+//         locationId : 5,
 //         customerName : 'customer5', 
 //         customerProfilePhotoUrl : 'url5',
 //         customerReview : 'text5',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 6,
+//         locationId : 6,
 //         customerName : 'customer6', 
 //         customerProfilePhotoUrl : 'url6',
 //         customerReview : 'text6',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 7,
+//         locationId : 7,
 //         customerName : 'customer7', 
 //         customerProfilePhotoUrl : 'url7',
 //         customerReview : 'text7',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 8,
+//         locationId : 8,
 //         customerName : 'customer8', 
 //         customerProfilePhotoUrl : 'url8',
 //         customerReview : 'text8',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 9,
+//         locationId : 9,
 //         customerName : 'customer9', 
 //         customerProfilePhotoUrl : 'url9',
 //         customerReview : 'text9',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 10,
+//         locationId : 10,
 //         customerName : 'customer10', 
 //         customerProfilePhotoUrl : 'url10',
 //         customerReview : 'text10',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 11,
+//         locationId : 11,
 //         customerName : 'customer11', 
 //         customerProfilePhotoUrl : 'url11',
 //         customerReview : 'text11',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 12,
+//         locationId : 12,
 //         customerName : 'customer12', 
 //         customerProfilePhotoUrl : 'url12',
 //         customerReview : 'text12',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 13,
+//         locationId : 13,
 //         customerName : 'customer13', 
 //         customerProfilePhotoUrl : 'url13',
 //         customerReview : 'text13',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 14,
+//         locationId : 14,
 //         customerName : 'customer14', 
 //         customerProfilePhotoUrl : 'url14',
 //         customerReview : 'text14',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     },
 //     {
-//         houseId : 15,
+//         locationId : 15,
 //         customerName : 'customer15', 
 //         customerProfilePhotoUrl : 'url15',
 //         customerReview : 'text15',
-//         createdAt : new Date(),
+//         ratingAccuracy : 1,
+//         ratingCommunication : 1,
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
 //         ratingValue : 1
 //     }
 //     ];
-// // save(sampleReviews, function(err, results) {
-// //     if (err) {
-// //         console.log('error ocured in saving to db-', err);
-// //     }
-// //     console.log('results saving to db-', results);
-// // });
+// save(sampleReviews, function(err, results) {
+//     if (err) {
+//         console.log('error ocured in saving to db-', err);
+//     }
+//     console.log('results saving to db-', results);
+// });
 
-// //create fake data using faker.js
-// const sampleReviewsFromFaker = {
-//     houseId : 3,
-//     customerName : 'customer3', 
-//     customerProfilePhotoUrl : 'url3',
-//     customerReview : 'text3',
-//     createdAt : new Date(),
-//     ratingCleanliness : 1,
-//     ratingCheckIn : 1,
-//     ratingLocation : 1,
-//     ratingValue : 1
-// }
+// // // //create fake data using faker.js
+// // // const sampleReviewsFromFaker = {
+// // //     locationId : 3,
+// // //     customerName : 'customer3', 
+// // //     customerProfilePhotoUrl : 'url3',
+// // //     customerReview : 'text3',
+// // //     createdAt : new Date(),
+// // //     ratingCleanliness : 1,
+// // //     ratingCheckIn : 1,
+// // //     ratingLocation : 1,
+// // //     ratingValue : 1
+// // // }
+
+// [{
+//     "locationId" : 20,
+//     "customerName" : "customer16", 
+//     "customerProfilePhotoUrl" : "/pics/default.jpg",
+//     "customerReview" : "text15",
+//     "ratingAccuracy" : 1,
+//     "ratingCommunication" : 1,
+//     "ratingCleanliness" : 1,
+//     "ratingCheckIn" : 1,
+//     "ratingLocation" : 1,
+//     "ratingValue" : 1
+// }]
+
