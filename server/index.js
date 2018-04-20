@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../db/index.js');
 const bodyParser = require('body-parser');
 // for crossoriginrequest
+
 const cors = require('cors');
 const path = require('path');
 
@@ -110,6 +111,7 @@ app.post('/reviews/:locationId', function(req, res) {
                 console.log('results saving to db-', results);
                 res.sendStatus(201);
             }
+
     });
 });
 
@@ -117,6 +119,7 @@ let port = 3000;
 
 app.listen(port, function () {
     console.log(`listening on port ${port}`);
+
 });
 
 module.exports.app = app;

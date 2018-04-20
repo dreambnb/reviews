@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 // const mLabConfig = require('./config/mLab.js');
 mongoose.connect(`mongodb://fantasyBnB:fantasyBnB@ds031957.mlab.com:31957/review`);
 
+
+
 //create a review schema
 let ReviewSchema = mongoose.Schema({
     //reviewId : {type: Number, unique: true},
@@ -15,6 +17,7 @@ let ReviewSchema = mongoose.Schema({
     createdAt : Date,
     ratingAccuracy: Number,
     ratingCommunication: Number,
+
     ratingCleanliness : Number,
     ratingCheckIn : Number,
     ratingLocation : Number,
@@ -26,6 +29,7 @@ let Review = mongoose.model('Review', ReviewSchema);
 //save reviews in db
 let save = function(sampleReviews, callback) {
     let sampleReviewsObject = sampleReviews.map (function(review) {
+
         return new Review ({
             locationId : review.locationId,
             customerName : review.customerName, 
@@ -47,6 +51,7 @@ let save = function(sampleReviews, callback) {
             return;
         }
         console.log('saved into db successfully-',results);
+
         callback(null, results);
     })
 }
@@ -58,6 +63,7 @@ let find = function(locationId, callback) {
             return;
         }
         // console.log('inside db find-', results);
+
         callback(null, results);
         return;
     })
@@ -85,6 +91,7 @@ module.exports.find = find;
 //         customerReview : 'text2',
 //         ratingAccuracy : 1,
 //         ratingCommunication : 1,
+
 //         ratingCleanliness : 1,
 //         ratingCheckIn : 1,
 //         ratingLocation : 1,
@@ -279,3 +286,4 @@ module.exports.find = find;
 //     "ratingLocation" : 1,
 //     "ratingValue" : 1
 // }]
+
