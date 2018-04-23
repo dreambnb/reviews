@@ -14,7 +14,6 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/reviews', function (req, res) {
     const locationId = req.query.locationId;
-    console.log('inside server-', locationId);
     const pageIndex = Number(req.query.index);
     if (locationId === undefined) {
         res.sendStatus(404);
@@ -24,7 +23,6 @@ app.get('/reviews', function (req, res) {
     const endIndex = 5 * pageIndex;
     db.find(locationId, function (err, results) {
         if (err) {
-            console.log('server index err while fetching data from db-', err);
             res.sendStatus(404);
         }
         //get reviews of each customer
@@ -47,7 +45,6 @@ app.get('/reviews', function (req, res) {
             });     
             getFive = searchResults.slice(startIndex, endIndex);
             searchResultsReviewsTotal = searchResults.length;
-            console.log('search results and length -', searchResults, searchResultsReviewsTotal)
             res.json({ getFive, totalReviews, searchResultsReviewsTotal});    
         } else {
             searchResultsReviewsTotal = totalReviews;

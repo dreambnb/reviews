@@ -67,7 +67,7 @@ export default class Review extends React.Component {
         })
     }
     searchKeyword(keyword) {
-        console.log('inside searchKeyword-keyword-', keyword); 
+        // console.log('inside searchKeyword-keyword-', keyword); 
         this.getReviews(1, keyword); 
     }
     render() {      
