@@ -5,6 +5,7 @@ import Style from './styles';
 import ReviewItem from './ReviewItem.jsx'
 import Paginations from './Paginations.jsx';
 import Ratings from './Ratings.jsx';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Review extends React.Component {
     constructor(props) {
@@ -72,7 +73,7 @@ export default class Review extends React.Component {
     }
     render() {      
         return (
-            <div>
+            <div style={Style.reviewComponent}>
             <Ratings averageRatings={this.state.averageRatings} totalReviews={this.state.totalReviews} searchKeyword={this.searchKeyword}/>
             <div>{this.renderReviews()}</div> 
             <Paginations cb={this.getReviews} searchReviews={this.state.searchResultsReviewsTotal}/>
