@@ -1,15 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Truncate from 'react-truncate';
 import Style from './styles';
 
 export default class ReviewItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            expanded: false,
+            truncated: false
+        };
+        this.handleTruncate = this.handleTruncate.bind(this);
+        this.toggleLines = this.toggleLines.bind(this);
+    }
+
+    handleTruncate(truncated) {
+        if (this.state.truncated !== truncated) {
+            this.setState({
+                truncated
+            });
+        }
+    }
+    toggleLines(event) {
+        event.preventDefault(); 
+        this.setState({
+            expanded: !this.state.expanded
+        });
     }
 
     render() {
         const { review } = this.props;
-        console.log('created date-', review.createdAt, typeof review.createdAt);
+        const lines = 3;
+        const {
+            expanded,
+            truncated 
+        } = this.state;
+ 
         let options = {  
             year: 'numeric',
             month: 'long',
@@ -26,17 +52,20 @@ export default class ReviewItem extends React.Component {
                 </div>
                 <div style={Style.reviewTextContainer}>
                     <span >
-                        <div id={"reviewTextElement"}lines={3}>
+                        <div>
+                        <Truncate
+                            lines={!expanded && lines}
+                            ellipsis={(
+                                <span>... <a href='#' onClick={this.toggleLines} style={{'color':'#008489'}}>Readmore</a></span>
+                            )}
+                            onTruncate={this.handleTruncate}
+                        >
                         {review.customerReview}
-                        </div>
+                        </Truncate>
+                        </div>          
                     </span>
                 </div>
             </div>
         )
     }
 }
-
-{/* <Truncate lines={3} ellipsis={<span>... <a href='#' style='color:#008489'>Read more</a></span>}>
-                {longText}
-            </Truncate> */}
-// ellipsis={<span>...<a href='#' style={{'color':'#008489'}}

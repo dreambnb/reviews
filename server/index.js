@@ -95,7 +95,6 @@ const calculateRatings = (results) => {
     averageRatings.Value = +(Math.round((ratingValue.total/ratingValue.count)+'e+1')+'e-1');
     averageRatings.overallRating = +(Math.round(((averageRatings.Accuracy+averageRatings.Communication+averageRatings.Cleanliness+averageRatings.CheckIn+ 
         averageRatings.Location + averageRatings.Value)/4)+'e+1')+'e-1');
-    console.log('in calculateAvgRatings-',averageRatings);
     return averageRatings;
 }
 
