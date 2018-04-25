@@ -13,7 +13,7 @@
     "start": "node server/index.js",
     "server-start": "nodemon server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot",
-    "script": "grunt webpack"
+    "script": "grunt"
   },
   "dependencies": {
     "aws-sdk": "^2.224.1",
