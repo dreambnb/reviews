@@ -8,21 +8,31 @@ module.exports = {
     filename: 'bundle.min.js',
     path: DIST_DIR
   },
-  module : {
-    loaders : [
-      {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',      
-        query: {
-          presets: ['react', 'es2015']
-        }
+  mode: 'production',
+  module: {
+    rules: [{
+      test: /\.jsx?/,
+      include: SRC_DIR,
+      loader: 'babel-loader',
+      query: {
+        presets: ['react', 'es2015'],
+      },
+    },
+    {
+      test: /\.css$/,
+      use: [{
+        loader: 'style-loader',
       },
       {
-        test : /\.css$/, 
-        loader: 'style-loader!css-loader',
-
-      }
-    ]
-  }
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: true,
+          localIdentName: '[local]___[hash:base64:5]',
+        },
+      },
+      ],
+    },
+    ],
+  },
 };
