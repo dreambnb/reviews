@@ -31,13 +31,15 @@ export default class Review extends React.Component {
         }
     }
     getReviews(pageIndex, keyword){
+        const url = (process.env.NODE_ENV === 'production') ? 
+        'http://ec2-18-218-93-72.us-east-2.compute.amazonaws.com': 'http://localhost:3000'
         if (pageIndex == null) {   //checks for both null and undefined 
             pageIndex = this.state.pageIndex;
         }
         if (keyword == null) {
             keyword = this.state.keyword;
         }
-        axios.get(`http://127.0.0.1:3000/reviews/`, {
+        axios.get(`${url}/reviews/`, {
             params : {
                 locationId: this.props.locationId,
                 index: pageIndex,
@@ -62,7 +64,6 @@ export default class Review extends React.Component {
         });
     }
     renderReviews() {
-        // console.log('inside renderReviews() reviews and count-', this.state.reviews);    
         return this.state.reviews.map((review, index) => {
             return <ReviewItem key={index} review={review}/>
         })
