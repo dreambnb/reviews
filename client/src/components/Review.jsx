@@ -33,6 +33,7 @@ export default class Review extends React.Component {
     getReviews(pageIndex, keyword){
         const url = (process.env.NODE_ENV === 'production') ? 
         'http://ec2-18-218-93-72.us-east-2.compute.amazonaws.com': 'http://localhost:3000'
+        // console.log(process.env.NODE_ENV)
         if (pageIndex == null) {   //checks for both null and undefined 
             pageIndex = this.state.pageIndex;
         }

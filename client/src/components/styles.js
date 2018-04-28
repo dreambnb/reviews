@@ -1,7 +1,7 @@
 const Style = {
     reviewComponent: {
-        width: '60vw',
-        paddingLeft: '80px',
+        width: '45vw',
+        paddingLeft: '110px',
         top: '100px',
         margin: '40px',
         fontFamily: 'Roboto Thin, sans-serif',
@@ -14,7 +14,6 @@ const Style = {
         borderTop: '1px solid #c1bdbe',
         paddingTop: '30px',
         position: 'relative',
-        width: "100%",
     },
     summaryReviewTextRatingStyling: {
         boxSizing: 'border-box',
@@ -24,7 +23,7 @@ const Style = {
         fontSize: '17px',
         fontWeight: 300,
         lineHeight: '22px',
-        width: "50%",
+        width: "300px",
     },
     summaryReviewTextStyling: {
         color: '#484848',
@@ -38,7 +37,9 @@ const Style = {
         paddingRight: '10px',
         width: '150px',
     },
-
+    summaryReviewRatingStyling: {
+        width: '150px'
+    },
     summaryReviewSearchBarInputDiv: {
         display: 'flex',
         flexDirection: 'row',
@@ -80,12 +81,13 @@ const Style = {
         display: 'flex',
         flexDirection: 'row',
         padding: '3px',
+        width: 270,
     },
     categoryRatingItemLabel: {
-        width: 150,
+        width: 120,
     },
     categoryRatingItemRating: {
-        width: 200,
+        width: 150,
     },
     reviewItemContainer: {
         borderBottom: '1px solid #c1bdbe',

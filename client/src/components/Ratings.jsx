@@ -16,7 +16,7 @@ export default class Ratings extends React.Component {
         return leftKeys.map((category, index) => (
             <div key={index} style={Style.categoryRatingItem}>
                 <div style={Style.categoryRatingItemLabel}>{category}</div>
-                <StarWidget rating={this.props.averageRatings[category]} />
+                <StarWidget style={Style.categoryRatingItemRating} rating={this.props.averageRatings[category]} />
             </div>
         ))
     }
@@ -25,7 +25,7 @@ export default class Ratings extends React.Component {
         return rightKeys.map((category, index) => (
             <div key={index} style={Style.categoryRatingItem}>
                 <div style={Style.categoryRatingItemLabel}>{category}</div>
-                <StarWidget rating={this.props.averageRatings[category]} />
+                <StarWidget  style={Style.categoryRatingItemRating} rating={this.props.averageRatings[category]} />
             </div>
         ));
     }
@@ -33,7 +33,7 @@ export default class Ratings extends React.Component {
         return <div style={Style.summaryReviewStyling}>
             <div style={Style.summaryReviewTextRatingStyling}>
                 <div style={Style.summaryReviewTextStyling}>{this.props.totalReviews} Reviews</div>
-                <StarWidget rating={this.props.averageRatings['overallRating']} />
+                <StarWidget style={Style.summaryReviewRatingStyling} rating={this.props.averageRatings['overallRating']} />
             </div>
             <Search cb={this.props.searchKeyword} />
         </div>

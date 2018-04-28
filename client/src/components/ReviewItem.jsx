@@ -56,7 +56,7 @@ export default class ReviewItem extends React.Component {
                         <Truncate
                             lines={!expanded && lines}
                             ellipsis={(
-                                <span>... <a href='#' onClick={this.toggleLines} style={{'color':'#008489'}}>Readmore</a></span>
+                                <span>... <a href='#' onClick={this.toggleLines} style={{'color':'#008489'}}>Read more</a></span>
                             )}
                             onTruncate={this.handleTruncate}
                         >
