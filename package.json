@@ -13,7 +13,9 @@
     "start": "node server/index.js",
     "server-start": "nodemon server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot",
-    "script": "grunt"
+    "script": "grunt",
+    "fakeData": "node db/config/seed1.js & node db/config/seed2.js & node db/config/seed3.js & node db/config/seed4.js",
+    "db": "mongoimport --db reviews --collection reviews data1.js & mongoimport --db reviews --collection reviews data2.js & mongoimport --db reviews --collection reviews data3.js & mongoimport --db reviews --collection reviews data4.js"
   },
   "dependencies": {
     "aws-sdk": "^2.224.1",
@@ -47,6 +49,7 @@
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "faker": "^4.1.0",
     "grunt": "^1.0.2",
     "grunt-aws": "^0.6.2",
     "grunt-browserify": "^5.3.0",
@@ -55,9 +58,9 @@
     "grunt-webpack": "^3.1.1",
     "jest": "^22.4.3",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.14",
-    "uglifyjs-webpack-plugin": "^1.2.5"
+    "webpack-cli": "^2.0.14"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
