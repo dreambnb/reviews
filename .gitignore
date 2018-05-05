@@ -4,3 +4,10 @@ db/config/mlab.js
 client/dist/bundle.js
 my-aws-key-pairs/my-ec2-key-pair.pem
 credentials.json
+
+data1.js
+data2.js
+data3.js
+data4.js
+data.csv
+priya-screenshots
