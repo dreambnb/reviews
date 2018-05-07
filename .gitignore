@@ -1,7 +1,7 @@
 node_modules
 db/config/mlab.js
 **/.DS_Store
-client/dist/bundle.js
+client/dist/bundle.min.js
 my-aws-key-pairs/my-ec2-key-pair.pem
 credentials.json
 
@@ -11,3 +11,4 @@ data3.js
 data4.js
 data.csv
 priya-screenshots
+newrelic.js

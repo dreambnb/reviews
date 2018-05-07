@@ -74,7 +74,7 @@ export default class Review extends React.Component {
         // console.log('inside searchKeyword-keyword-', keyword); 
         this.getReviews(1, keyword); 
     }
-    render() {      
+    render() {
         return (
             <div style={Style.reviewComponent}>
             <Ratings averageRatings={this.state.averageRatings} totalReviews={this.state.totalReviews} searchKeyword={this.searchKeyword}/>

@@ -9,6 +9,11 @@ module.exports = {
     path: DIST_DIR
   },
   mode: 'production',  
+  externals: {
+    // define newrelic as an external library
+    // http://webpack.github.io/docs/configuration.html#externals
+    newrelic: true
+  },
   module: {
     rules: [{
       test: /\.jsx?/,

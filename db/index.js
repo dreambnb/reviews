@@ -15,7 +15,7 @@ db.once('open', function() {
 //create a review schema
 let ReviewSchema = mongoose.Schema({
     //reviewId : {type: Number, unique: true},
-    locationId : Number,
+    locationId : {type: [Number], index: true },
     customerName : String, 
     customerProfilePhotoUrl : String,
     customerReview : String,
