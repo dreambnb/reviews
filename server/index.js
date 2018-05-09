@@ -6,42 +6,48 @@ const cors = require('cors');
 const path = require('path');
 
 //redis
-// const responseTime = require('response-time')
-// const redis = require('redis');
+const responseTime = require('response-time')
+const redis = require('redis');
+
 // create a new redis client and connect to our local redis instance
-// const client = redis.createClient();
-// // if an error occurs, print it to the console
-// client.on('error', function (err) {
-//     console.log("Error " + err);
-// });
+const client = redis.createClient(6379, 'localhost');
+
+// if an error occurs, print it to the console
+client.on('error', function (err) {
+    console.log("Error " + err);
+});
 
   
-// client.on('ready',function() {
-// console.log("Redis is ready");
-// });
+client.on('ready',function() {
+console.log("Redis is ready");
+});
 
 let app = express();
 app.use(bodyParser.json());
+
 // for crossoriginrequest
 app.use(cors());
 
-// app.use(responseTime());
+app.use(responseTime());
+
 //server static content
 app.use('/rooms/:roomid', express.static(path.join(__dirname, '../client/dist')));
 
-
-
 app.get('/reviews', function (req, res) {
     const locationId = req.query.locationId;
-    // console.log('inside reviews-', locationId);
+    console.log('location id is ', locationId)
+
     // use the redis client 
-    
-    // client.get(locationId, function (error, result) {
-    //     if (result) {
-            // const { getFive, totalReviews, searchResultsReviewsTotal, averageRatings } = result;
-        //     res.end(result);
-        // } else {
+    client.get(locationId, function (error, result) {
+        if (result) {
+            // the result exists in our cache - return it to the user immediately
+            console.log('from Redis')
+            const { getFive, totalReviews, searchResultsReviewsTotal, averageRatings } = result;
+            res.send(result);
+        } else {
+            // we couldn't find the key in our cache, so we'll get it from our db
             const pageIndex = Number(req.query.index);
+            console.log('page index is ', pageIndex)
             if (locationId === undefined) {res.sendStatus(404);return;
             }
             const startIndex = 5 * (pageIndex - 1);
@@ -69,16 +75,17 @@ app.get('/reviews', function (req, res) {
                     });
                     getFive = searchResults.slice(startIndex, endIndex);
                     searchResultsReviewsTotal = searchResults.length;
-                    // client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                    // PRIYA: Ask Sujitha why she is calling setex within the search keyword. I don't understand what's happening here.
+                    client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
                     res.json({ getFive, totalReviews, searchResultsReviewsTotal});
                 } else {
                     searchResultsReviewsTotal = totalReviews;
-                    // client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                    client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
                     res.json({ getFive, totalReviews, searchResultsReviewsTotal, averageRatings });
                 }
             });  
-        // }
-    // });
+        }
+    });
 })
 
     const calculateRatings = (results) => {

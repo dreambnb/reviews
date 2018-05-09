@@ -12,3 +12,7 @@ data4.js
 data.csv
 priya-screenshots
 newrelic.js
+
+../dump.rdb
+	../newrelic_agent.log
+	newrelic_agent.log
