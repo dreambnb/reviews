@@ -1,4 +1,4 @@
-require('newrelic');
+var nr = require('newrelic');
 const express = require('express');
 const db = require('../db/index.js');
 const bodyParser = require('body-parser');
@@ -6,19 +6,17 @@ const cors = require('cors');
 const path = require('path');
 
 //redis
-// const responseTime = require('response-time')
-// const redis = require('redis');
+const responseTime = require('response-time')
+const redis = require('redis');
 // create a new redis client and connect to our local redis instance
-// const client = redis.createClient();
-// // if an error occurs, print it to the console
-// client.on('error', function (err) {
-//     console.log("Error " + err);
-// });
+const client = redis.createClient();
+client.on('error', function (err) {
+    console.log("Error " + err);
+});
 
-  
-// client.on('ready',function() {
-// console.log("Redis is ready");
-// });
+client.on('ready',function() {
+  console.log("Redis is ready");
+});
 
 let app = express();
 app.use(bodyParser.json());
@@ -36,11 +34,11 @@ app.get('/reviews', function (req, res) {
     // console.log('inside reviews-', locationId);
     // use the redis client 
     
-    // client.get(locationId, function (error, result) {
-    //     if (result) {
-            // const { getFive, totalReviews, searchResultsReviewsTotal, averageRatings } = result;
-        //     res.end(result);
-        // } else {
+    client.get(locationId, function (error, result) {
+        if (result) {
+            const { getFive, totalReviews, searchResultsReviewsTotal, averageRatings } = result;
+            res.end(result);
+        } else {
             const pageIndex = Number(req.query.index);
             if (locationId === undefined) {res.sendStatus(404);return;
             }
@@ -69,16 +67,16 @@ app.get('/reviews', function (req, res) {
                     });
                     getFive = searchResults.slice(startIndex, endIndex);
                     searchResultsReviewsTotal = searchResults.length;
-                    // client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                    client.setex(locationId, 3600, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
                     res.json({ getFive, totalReviews, searchResultsReviewsTotal});
                 } else {
                     searchResultsReviewsTotal = totalReviews;
-                    // client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                    client.setex(locationId, 3600, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
                     res.json({ getFive, totalReviews, searchResultsReviewsTotal, averageRatings });
                 }
             });  
-        // }
-    // });
+        }
+    });
 })
 
     const calculateRatings = (results) => {

@@ -1,0 +1,22 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+    - duration: 600
+      arrivalRate: 50      
+  payload:
+    path: "./loadtesting/requests.csv"
+    fields:
+      - "numbers"
+scenarios:
+  - name: "Serve random listings"
+    flow:
+    - get:
+        url: "/rooms/{{ numbers }}"
+    - get:
+        url: "/reviews"
+        body: "locationId={{ numbers }}"
