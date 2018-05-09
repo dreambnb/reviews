@@ -1,4 +1,4 @@
-require('newrelic');
+var nr = require('newrelic');
 const express = require('express');
 const db = require('../db/index.js');
 const bodyParser = require('body-parser');
@@ -8,18 +8,28 @@ const path = require('path');
 //redis
 const responseTime = require('response-time')
 const redis = require('redis');
+<<<<<<< HEAD
 
 // create a new redis client and connect to our local redis instance
 const client = redis.createClient(6379, 'localhost');
 
 // if an error occurs, print it to the console
+=======
+// create a new redis client and connect to our local redis instance
+const client = redis.createClient();
+>>>>>>> a1eab91b51a3be588f4ff08398907a12efc34dab
 client.on('error', function (err) {
     console.log("Error " + err);
 });
 
+<<<<<<< HEAD
   
 client.on('ready',function() {
 console.log("Redis is ready");
+=======
+client.on('ready',function() {
+  console.log("Redis is ready");
+>>>>>>> a1eab91b51a3be588f4ff08398907a12efc34dab
 });
 
 let app = express();
