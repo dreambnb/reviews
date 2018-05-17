@@ -8,6 +8,9 @@ COPY . /src/app
 
 RUN yarn install
 
+# RUN npm run fakeData
+
+# RUN npm run db
 
 EXPOSE 3000
 
