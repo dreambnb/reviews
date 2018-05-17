@@ -6,9 +6,9 @@ const path = require('path');
 const responseTime = require('response-time')
 const redis = require('redis');
 const db = require('../db/index.js');
-require('dotenv').config();
 
-var host = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
+// var host = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
+var host = 'localhost';
 
 const client = redis.createClient('6379', host);
 

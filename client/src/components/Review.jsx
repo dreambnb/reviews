@@ -5,7 +5,6 @@ import Style from './styles';
 import ReviewItem from './ReviewItem.jsx'
 import Paginations from './Paginations.jsx';
 import Ratings from './Ratings.jsx';
-require('dotenv').config();
 
 class Review extends React.Component {
     constructor(props) {
@@ -31,9 +30,10 @@ class Review extends React.Component {
         }
     }
     getReviews(pageIndex, keyword){
-        const url = (process.env.NODE_ENV === 'production') ? 
-        'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com': 'http://localhost:8080'
-        console.log(process.env.NODE_ENV, url)
+        // const url = (process.env.NODE_ENV === 'production') ? 
+        // 'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com': 'http://localhost:8080'
+        const url = 'http://localhost:8080';
+        // console.log(process.env.NODE_ENV, url)
         if (pageIndex == null) {   //checks for both null and undefined 
             pageIndex = this.state.pageIndex;
         }
@@ -43,8 +43,8 @@ class Review extends React.Component {
         axios.get(`${url}/reviews/`, {
             params : {
                 locationId: this.props.locationId,
-                // index: pageIndex,
-                // keyword: keyword
+                index: pageIndex,
+                keyword: keyword
             }
         })
         .then(reviews => { 
@@ -65,6 +65,7 @@ class Review extends React.Component {
         });
     }
     renderReviews() {
+      console.log('reviews are: ', this.state.reviews)
         return this.state.reviews.map((review, index) => {
             return <ReviewItem key={index} review={review}/>
         })

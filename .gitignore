@@ -1,7 +1,13 @@
 node_modules
 db/config/mlab.js
 **/.DS_Store
+
+## Bundles ##
 client/dist/bundle.min.js
+client/dist/app-serve.js
+client/dist/app-server.js
+client/dist/app.js
+
 my-aws-key-pairs/my-ec2-key-pair.pem
 credentials.json
 
