@@ -5,9 +5,8 @@ import Style from './styles';
 import ReviewItem from './ReviewItem.jsx'
 import Paginations from './Paginations.jsx';
 import Ratings from './Ratings.jsx';
-import 'bootstrap/dist/css/bootstrap.css';
 
-export default class Review extends React.Component {
+class Review extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,9 +31,9 @@ export default class Review extends React.Component {
     }
     getReviews(pageIndex, keyword){
         // const url = (process.env.NODE_ENV === 'production') ? 
-        // 'http://ec2-18-218-93-72.us-east-2.compute.amazonaws.com': 'http://localhost:3000'
-        const url = 'http://localhost:3000';
-        console.log(process.env.NODE_ENV, url)
+        // 'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com': 'http://localhost:8080'
+        const url = 'http://localhost:8080';
+        // console.log(process.env.NODE_ENV, url)
         if (pageIndex == null) {   //checks for both null and undefined 
             pageIndex = this.state.pageIndex;
         }
@@ -66,6 +65,7 @@ export default class Review extends React.Component {
         });
     }
     renderReviews() {
+      console.log('reviews are: ', this.state.reviews)
         return this.state.reviews.map((review, index) => {
             return <ReviewItem key={index} review={review}/>
         })
@@ -84,3 +84,5 @@ export default class Review extends React.Component {
         )
     }
 }
+
+export default Review;

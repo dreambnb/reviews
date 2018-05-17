@@ -1,16 +1,16 @@
 var nr = require('newrelic');
 const express = require('express');
-const db = require('../db/index.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-
-//redis
 const responseTime = require('response-time')
 const redis = require('redis');
+const db = require('../db/index.js');
 
-// create a new redis client and connect to our local redis instance
-const client = redis.createClient(6379, 'localhost');
+// var host = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
+var host = 'localhost';
+
+const client = redis.createClient('6379', host);
 
 // if an error occurs, print it to the console
 client.on('error', function (err) {
@@ -54,33 +54,34 @@ app.get('/reviews', function (req, res) {
             db.find(locationId, function (err, results) {
                 if (err) {
                     res.sendStatus(404);
-                }
-                //get reviews of each customer
-                const reviewInfo = results.map(review => {
-                    return {
-                        customerName: review.customerName,
-                        createdAt: review.createdAt,
-                        customerProfilePhotoUrl: review.customerProfilePhotoUrl,
-                        customerReview: review.customerReview,}
-                });
-                const averageRatings = calculateRatings(results);
-                let getFive = reviewInfo.slice(startIndex, endIndex);
-                let totalReviews = reviewInfo.length;
-                let searchResults = [];
-                let searchResultsReviewsTotal = 0;
-                if (req.query.keyword) {
-                    searchResults = reviewInfo.filter(review => {
-                        return (review['customerReview'].indexOf(req.query.keyword)) > -1;
-                    });
-                    getFive = searchResults.slice(startIndex, endIndex);
-                    searchResultsReviewsTotal = searchResults.length;
-                    // PRIYA: Ask Sujitha why she is calling setex within the search keyword. I don't understand what's happening here.
-                    client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
-                    res.json({ getFive, totalReviews, searchResultsReviewsTotal});
                 } else {
-                    searchResultsReviewsTotal = totalReviews;
-                    client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
-                    res.json({ getFive, totalReviews, searchResultsReviewsTotal, averageRatings });
+                  //get reviews of each customer
+                  const reviewInfo = results.map(review => {
+                      return {
+                          customerName: review.customerName,
+                          createdAt: review.createdAt,
+                          customerProfilePhotoUrl: review.customerProfilePhotoUrl,
+                          customerReview: review.customerReview,}
+                  });
+                  const averageRatings = calculateRatings(results);
+                  let getFive = reviewInfo.slice(startIndex, endIndex);
+                  let totalReviews = reviewInfo.length;
+                  let searchResults = [];
+                  let searchResultsReviewsTotal = 0;
+                  if (req.query.keyword) {
+                      searchResults = reviewInfo.filter(review => {
+                          return (review['customerReview'].indexOf(req.query.keyword)) > -1;
+                      });
+                      getFive = searchResults.slice(startIndex, endIndex);
+                      searchResultsReviewsTotal = searchResults.length;
+                      // PRIYA: Ask Sujitha why she is calling setex within the search keyword. I don't understand what's happening here.
+                      client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                      res.json({ getFive, totalReviews, searchResultsReviewsTotal});
+                  } else {
+                      searchResultsReviewsTotal = totalReviews;
+                      client.setex(locationId, 60, JSON.stringify({getFive, totalReviews, searchResultsReviewsTotal, averageRatings}));
+                      res.json({ getFive, totalReviews, searchResultsReviewsTotal, averageRatings });
+                  }
                 }
             });  
         }
@@ -146,7 +147,7 @@ app.get('/reviews', function (req, res) {
         });
     });
 
-    let port = 3000;
+    var port = process.env.PORT || 8080
 
     app.listen(port, function () {
         console.log(`listening on port ${port}`);

@@ -1,13 +1,9 @@
 var path = require('path');
+const webpack = require('webpack');
 var SRC_DIR = path.join(__dirname, './client/src');
 var DIST_DIR = path.join(__dirname, './client/dist');
 
-module.exports = {
-  entry: `${SRC_DIR}/index.js`,
-  output: {
-    filename: 'bundle.min.js',
-    path: DIST_DIR
-  },
+const common = {
   mode: 'production',  
   externals: {
     // define newrelic as an external library
@@ -21,21 +17,34 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         presets: ['react', 'es2015'],
-      },
+      }
     },
     {
       test: /\.css$/,
       loader: 'style-loader!css-loader',
-      // {
-      //   loader: 'css-loader',
-      //   options: {
-      //     sourceMap: true,
-      //     modules: true,
-      //     localIdentName: '[local]___[hash:base64:5]',
-      //   },
-      // },
-      
-      },
-    ],
+    },
+  ]}
+};
+
+const client = {
+  entry: `${SRC_DIR}/index.js`,
+  output: {
+    filename: 'app.js',
+    path: DIST_DIR
   },
 };
+
+const server = {
+  entry: `${SRC_DIR}/components/Review.jsx`,
+  target: 'node',
+  output: {
+    filename: 'app-server.js',
+    path: DIST_DIR,
+    libraryTarget: 'commonjs-module',
+  },
+};
+
+module.exports = [
+  Object.assign({}, common, client),
+  Object.assign({}, common, server)
+];

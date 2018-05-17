@@ -9,7 +9,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "react-dev": "webpack --watch -p",
+    "react-dev": "webpack --watch",
+    "helpme": "webpack --help",
     "start": "node server/index.js",
     "server-start": "nodemon server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot",
@@ -21,11 +22,12 @@
     "aws-sdk": "^2.224.1",
     "axios": "^0.18.0",
     "body-parser": "^1.17.0",
-    "bootstrap": "^4.1.0",
+    "bootstrap": "^4.1.1",
     "cors": "^2.8.4",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
     "moment": "^2.19.2",
+    "mongoimport": "^1.0.6",
     "mongoose": "^4.9.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -58,12 +60,14 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.3.0",
     "grunt-webpack": "^3.1.1",
+    "isomorphic-style-loader": "^4.0.0",
     "jest": "^22.4.3",
     "newrelic": "^4.1.0",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "webpack-node-externals": "^1.7.2"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
