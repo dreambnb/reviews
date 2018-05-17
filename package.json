@@ -10,9 +10,7 @@
   },
   "scripts": {
     "react-dev": "webpack --watch",
-    "helpme": "webpack --help",
-    "start": "node server/index.js",
-    "server-start": "nodemon server/index.js",
+    "start": "nodemon server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot",
     "script": "grunt",
     "fakeData": "node db/config/mongoSeeding/seed1.js & node db/config/mongoSeeding/seed2.js & node db/config/mongoSeeding/seed3.js & node db/config/mongoSeeding/seed4.js",

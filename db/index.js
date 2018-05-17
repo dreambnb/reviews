@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 //     useMongoClient: true,
 // });
 // const mLabConfig = require('./config/mLab.js');
-mongoose.connect('mongodb://localhost:27017/reviews');
+// mongoose.connect('mongodb://localhost:27017/reviews');
+mongoose.connect('mongodb://ec2-52-14-26-218.us-east-2.compute.amazonaws.com/reviews');
 
 // var host = process.env.NODE_ENV === 'production' ? 'ec2-52-14-26-218.us-east-2.compute.amazonaws.com' : 'localhost:27017';
 // mongoose.connect(`mongodb://${host}/reviews`);

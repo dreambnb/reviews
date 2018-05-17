@@ -8,7 +8,8 @@ const redis = require('redis');
 const db = require('../db/index.js');
 
 // var host = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
-var host = 'localhost';
+// var host = 'localhost';
+var host = 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com'
 
 const client = redis.createClient('6379', host);
 
