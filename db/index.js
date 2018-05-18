@@ -78,6 +78,7 @@ let find = function(locationId, callback) {
 }
 module.exports.save = save;
 module.exports.find = find;
+module.exports.Review = Review;
 
 // var sampleReviews = 
 //     [{

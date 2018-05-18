@@ -12,6 +12,6 @@ RUN yarn install
 
 # RUN npm run db
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "npm", "start" ]
