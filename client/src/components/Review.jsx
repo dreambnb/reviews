@@ -30,10 +30,10 @@ class Review extends React.Component {
         }
     }
     getReviews(pageIndex, keyword){
-        // const url = (process.env.NODE_ENV === 'production') ? 
-        // 'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com': 'http://localhost:8080'
+        const url = (process.env.NODE_ENV === 'production') ? 
+        'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com': 'http://localhost:8080'
         // const url = 'http://localhost:8080';
-        const url = 'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com';
+        // const url = 'http://ec2-18-219-219-109.us-east-2.compute.amazonaws.com';
         console.log('process.env.NODE_ENV is: ', process.env.NODE_ENV)
         if (pageIndex == null) {   //checks for both null and undefined 
             pageIndex = this.state.pageIndex;

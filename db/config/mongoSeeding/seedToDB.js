@@ -13,11 +13,11 @@ var generateReviewsNumber = function() {
 
 let count = 0;
 async function seeder() {
-  for (let i = 0; i < 1000; i += 1) {
+  for (let i = 1; i <= 1000; i += 1) {
     let batch = [];
-    for (let j = 0; j < 10000; j += 1) {
+    for (let j = 1; j <= 10000; j += 1) {
       var listing = {
-        locationId : i,
+        locationId : i * j,
         customerName : name.firstName(), 
         customerProfilePhotoUrl : image.avatar(),
         customerReview : lorem.sentences(),

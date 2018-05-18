@@ -7,11 +7,10 @@ const responseTime = require('response-time')
 const redis = require('redis');
 const db = require('../db/index.js');
 
-// var host = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
-// var host = 'localhost';
-var host = 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com'
+var redisHost = process.env.NODE_ENV === 'production' ? 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com' : 'localhost';
+// var redisHost = 'ec2-13-58-30-232.us-east-2.compute.amazonaws.com';
 
-const client = redis.createClient('6379', host);
+const client = redis.createClient('6379', redisHost);
 
 // if an error occurs, print it to the console
 client.on('error', function (err) {
@@ -65,6 +64,8 @@ app.get('/reviews', function (req, res) {
                           customerReview: review.customerReview,}
                   });
                   const averageRatings = calculateRatings(results);
+                  console.log('Querying the database by listing, gives the following results: ', results)
+                  console.log('Average Ratings is: ', averageRatings);
                   let getFive = reviewInfo.slice(startIndex, endIndex);
                   let totalReviews = reviewInfo.length;
                   let searchResults = [];
@@ -152,7 +153,6 @@ app.get('/reviews', function (req, res) {
 
     app.listen(port, function () {
         console.log(`listening on port ${port}`);
-
     });
 
     module.exports.app = app;
